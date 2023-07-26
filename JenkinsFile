@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'dev', credentialsId: '4bcd3de6-6b0a-407e-a7b8-303f99cecaf0', url: 'https://Shabbir_Sheikh@bitbucket.org/abjayon-insights/datalake.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh '''
+                    rsync -avz --delete $WORKSPACE/ /home/sam
+                '''
+            }
+        }
+    }
+}
